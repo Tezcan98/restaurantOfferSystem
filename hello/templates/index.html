@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}<div class="container-fluid">
+
+    <p style="font-size: 24px; color: white">Search for restaurants near you -></p>
+    <br>
+  </div>
+<div class="row" src="{% static 'res-bg.jpg'%}">
+
+  <div class="col-sm-4 dropdown">
+      <button class="btn btn-warning dropdown-toggle" id="select_city" type="button"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Select City</button>
+
+      <input type="hidden" id="selectcity" name="selectcity"/>
+      <div class="dropdown-menu" aria-labelledby="select_city"> 
+        {% for c in cities %}
+            <button class='dropdown-item' type='button' onclick=updateCity(this)>{{c}}</button> 
+             
+        {% endfor %}
+      </div>
+     
+  </div>
+  
+  <div class="col-sm-2 dropdown">
+      <button class="btn btn-warning dropdown-toggle" name="select_min_price"  id="select_min_price" type="button"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Minimum Price</button>
+
+      <input type="hidden" id="selectminprice" name="selectminprice"/>
+      <div class="dropdown-menu" aria-labelledby="select_min_price">
+          <button class="dropdown-item" type="button" onclick="updateMinPrice(this)">-$-</button>
+          <button class="dropdown-item" type="button" onclick="updateMinPrice(this)">-$$-</button>
+          <button class="dropdown-item" type="button" onclick="updateMinPrice(this)">-$$$-</button>
+          <button class="dropdown-item" type="button" onclick="updateMinPrice(this)">-$$$$-</button>
+      </div>
+     
+  </div>
+  <div class="col-sm-4 dropdown">
+      <button class="btn btn-warning dropdown-toggle" name="select_max_price" id="select_max_price" type="button"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Maximum Price</button>
+                  <input type="hidden" id="selectmaxprice" name="selectmaxprice"/>
+      <div class="dropdown-menu" aria-labelledby="select_max_price">
+          <button class="dropdown-item" type="button" onclick="updateMaxPrice(this)">-$-</button>
+          <button class="dropdown-item" type="button" onclick="updateMaxPrice(this)">-$$-</button>
+          <button class="dropdown-item" type="button" onclick="updateMaxPrice(this)">-$$$-</button>
+          <button class="dropdown-item" type="button" onclick="updateMaxPrice(this)">-$$$$-</button>
+      </div>
+    
+  </div>
+
+  <div class="col-sm-2 dropdown">
+      <button class="btn btn-warning dropdown-toggle" name="select_min_rank"  id="select_min_rank" type="button"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Minimum Rank</button>
+      <input type="hidden" id="selectminrank" name="selectminrank"/>
+      <div class="dropdown-menu" aria-labelledby="select_min_rank">
+          <button class="dropdown-item" type="button" onclick="updateMinRank(this)">10+</button>
+          <button class="dropdown-item" type="button" onclick="updateMinRank(this)">9+</button>
+          <button class="dropdown-item" type="button" onclick="updateMinRank(this)">8+</button>
+          <button class="dropdown-item" type="button" onclick="updateMinRank(this)">7+</button>
+          <button class="dropdown-item" type="button" onclick="updateMinRank(this)">6+</button>
+          <button class="dropdown-item" type="button" onclick="updateMinRank(this)">5+</button>
+          <button class="dropdown-item" type="button" onclick="updateMinRank(this)">4+</button>
+          <button class="dropdown-item" type="button" onclick="updateMinRank(this)">3+</button>
+          <button class="dropdown-item" type="button" onclick="updateMinRank(this)">2+</button>
+          <button class="dropdown-item" type="button" onclick="updateMinRank(this)">1+</button>
+      </div>
+   
+  </div>
+  <br> <br>
+  <div class="col-sm-4 dropdown">
+      <button class="btn btn-warning dropdown-toggle" name="Result_Count" id="Result_Count" type="button"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Result Count</button>
+      <input type="hidden" id="resultcount" name="resultcount"/>
+      <div class="dropdown-menu" aria-labelledby="select_max_price">
+          <button class="dropdown-item" type="button" onclick="updateResult(this)">1</button>
+          <button class="dropdown-item" type="button" onclick="updateResult(this)">5</button>
+          <button class="dropdown-item" type="button" onclick="updateResult(this)">10</button>
+          <button class="dropdown-item" type="button" onclick="updateResult(this)">20</button>
+      </div>
+      
+  </div>
+
+</div>
+
+<br>
+<br>
+    <div class="text-center">
+    <form action="" method="GET">
+        <!-- {% csrf_token %} -->
+        <input type="hidden" name="min" id="min" value="-$-"/>
+        <input type="hidden" name="max" id="max"  value="-$$$$-"/>
+        <input type="hidden" name="rank"  id="rank" value="5"/>
+        <input type="hidden" name="city" id="city" value="Amsterdam"/> 
+        <button  class="btn btn-danger" type="submit" name="result" value="10" >&nbsp;Search Places Near Me</button> 
+    </form>
+   
+    </div>
+
+   
+</div>
+{% load mathfilters %}
+{% for p in places %} 
+    
+  <form name='comment' id= {{p.id}} target='_blank'> 
+      <div class='card mb-1' style='margin: 0.5%'>
+          <div class='row no-gutters'>
+          <div class='col-md-2'>
+              <img src= {{p.image_url}}  class='card-img' height='260' width='250'></img>
+          </div>
+          <div class='col-md-8'>
+          <div class='card-body'>
+              <p>{{p.id}} 
+              <p style='text-align: right;'> Price Range = {{p.Price_Range}} </p>
+              <h5 class='card-title'>{{p.name}} in {{p.City}}</h5>
+              <p class='card-text'>Cuisines ={{p.Cuisine_Style}}</p>
+
+              <p style='text-align: right;'>RANK =  Clicks x Comment Rate = {{p.click}}x( {{p.CommentsAverage}}/ {{p.countofcomments}})/ 10 =
+                  {{p.click|mul:p.CommentsAverage|div:p.countofcomments}} </p>
+              <input type='hidden' name=link value={{p.image_url}}>
+              <input type='text' name ='0' id = ".$i." style='display:none'  > </input>
+              <button name='comment' title={{p.id}} type='button' id={{p.id}}>Add Comment</button>
+              <button stype='submit' name='go'value=> Go Site ! </a></button>
+          </div>
+          </div>
+          </div>
+          </div>
+    </form>
+          {% endfor %}   
+
+<script>
+   function updateCity(button,id){
+        document.getElementById("select_city").innerHTML = button.innerHTML; 
+        document.getElementById("city").value = button.innerHTML;
+    } 
+    function updateMinRank(button){
+        document.getElementById("select_min_rank").innerHTML = button.innerHTML; 
+        document.getElementById("rank").value = button.innerHTML;
+    }
+    function updateMaxPrice(button){
+        document.getElementById("select_max_price").innerHTML = button.innerHTML; 
+        document.getElementById("max").value = button.innerHTML;
+    }
+    function updateMinPrice(button){
+        document.getElementById("select_min_price").innerHTML = button.innerHTML;  
+        
+        document.getElementById("min").value = button.innerHTML;
+    }
+    function updateResult(button){
+              document.getElementById("Result_Count").innerHTML = button.innerHTML; 
+              document.getElementById("result").value = button.innerHTML;
+          }
+
+          $(document).ready(function(){
+
+            $("button[name='comment']").click(function(){
+                alert("..")
+            // var idd=this.id;
+            // var name = $("input[id="+idd+"]").attr('name');
+            // if(name==0){
+            //     $("input[id="+idd+"]").css("display","inline");
+            //     $("input[id="+idd+"]").attr('name','yorum'); 
+            // }
+            // else {
+            //     var title = $("button[id="+idd+"]").attr('title');
+            //     $("button[id="+idd+"]").attr('value',title);
+            //     $("button[id="+idd+"]").attr('type','submit'); 
+            // }
+
+            // });
+
+});
+</script>
+
+{% endblock %}

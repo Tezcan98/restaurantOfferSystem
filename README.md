@@ -1,45 +1,23 @@
-# Python: Getting Started
+# Get Started
 
-A barebones Django app, which can easily be deployed to Heroku.
+Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design.\
+In this project I have develop a services that include almost 100k restaurants fro [TripAdvisor Restaurants Info for 31 Euro-Cities](https://www.kaggle.com/damienbeneschi/krakow-ta-restaurans-data-raw) \
+This web application makes it easy to find restaurants and classify your feedback as positive or negative and shift the position to the lower or higher ranks.
 
-This application supports the [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python) article - check it out.
+Walkthroughs in the development process
+  - Trimmed and filtering some columns to use the data needed from csv
+  - Create Postgre Database and upload edited data
+  - Design Html&Css template and connect with Django
+  - [Create a Sentiment Analyzer with Text Classification in python](https://itnext.io/how-to-create-a-sentiment-analyzer-with-text-classification-python-ai-f3a5d10922c5)
+  - Finally some Javascript codes
+  
+It's Information Retrieval and Web Search Engines lecture's task so just work in localhost.
 
-## Running Locally
+## ScreenShoots
+![ss1](https://github.com/Tezcan98/restaurantOfferSystem/blob/master/ss1.jpg)
 
-Make sure you have Python 3.7 [installed locally](http://install.python-guide.org). To push to Heroku, you'll need to install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli), as well as [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup).
-
-```sh
-$ git clone https://github.com/heroku/python-getting-started.git
-$ cd python-getting-started
-
-$ python3 -m venv getting-started
-$ pip install -r requirements.txt
-
-$ createdb python_getting_started
-
-$ python manage.py migrate
-$ python manage.py collectstatic
-
-$ heroku local
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
-
-```sh
-$ heroku create
-$ git push heroku main
-
-$ heroku run python manage.py migrate
-$ heroku open
-```
-or
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Python on Heroku, see these Dev Center articles:
-
-- [Python on Heroku](https://devcenter.heroku.com/categories/python)
+![ss2](https://github.com/Tezcan98/restaurantOfferSystem/blob/master/ss2.jpg)
+### Thanks
+[The Person who Write Sentiment Analyzer article](https://medium.com/@gabrielschade)
+[Yunus Karatepe](https://www.linkedin.com/in/yunus-karatepe-911b7a17b/?originalSubdomain=tr)
+[The Person who upload dataset to Kaggle](https://www.kaggle.com/damienbeneschi)

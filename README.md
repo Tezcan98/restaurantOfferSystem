@@ -18,6 +18,6 @@ It's Information Retrieval and Web Search Engines lecture's task so just work in
 
 ![ss2](https://github.com/Tezcan98/restaurantOfferSystem/blob/master/ss2.jpg)
 ### Thanks
-[The Person who Write Sentiment Analyzer article](https://medium.com/@gabrielschade)
-[Yunus Karatepe](https://www.linkedin.com/in/yunus-karatepe-911b7a17b/?originalSubdomain=tr)
+[The Person who Write Sentiment Analyzer article](https://medium.com/@gabrielschade)\
+[Yunus Karatepe](https://www.linkedin.com/in/yunus-karatepe-911b7a17b/?originalSubdomain=tr)\
 [The Person who upload dataset to Kaggle](https://www.kaggle.com/damienbeneschi)
